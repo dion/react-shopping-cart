@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchOrders } from '../reducers/orderActions';
+import { fetchOrders } from '../reducers/orderSlice';
 import formatCurrency from '../util';
 
 class Orders extends Component {

@@ -65,7 +65,10 @@ const productSlice = createSlice({
    },
    extraReducers: {
       [fetchProductsAsync.fulfilled]: (state, action) => {
-         return action.payload.products;
+         return {
+            items: action.payload.products,
+            filteredItems: []
+         };
       }
    }
 });

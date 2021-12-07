@@ -1,6 +1,6 @@
 import React from 'react';
 import Cart from '../components/Cart';
-//import Filter from '../components/Filter';
+import Filter from '../components/Filter';
 import Products from '../components/Products';
 
 const Homescreen = () => {

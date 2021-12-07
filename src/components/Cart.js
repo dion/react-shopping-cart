@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
 
 import { removeFromCart } from '../reducers/cartSlice';
-import { clearOrder, createOrder  } from '../reducers/orderActions';
+import { clearOrder, createOrder  } from '../reducers/orderSlice';
 
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
@@ -19,24 +19,22 @@ const Cart = () => {
    const [address, setAddress] = useState('');
    const [showCheckout, setShowCheckout] = useState('');
 
-   const handleInput = (e) => {
-      //this.setState({ [e.target.name]: e.target.value });
-   };
-
-   const createOrder = (e) => {
+   const createOrderHandler = (e) => {
       e.preventDefault();
+
       const order = {
-         name: this.state.name,
-         email: this.state.email,
-         address: this.state.address,
+         name: name,
+         email: email,
+         address: address,
          cartItems: cartItems,
          total: cartItems.reduce((a,c) => a + c.price * c.count, 0),
       };
-      this.props.createOrder(order);
+      console.log('createOrderHandler', order);      
+      createOrder(order);
    };
 
    const closeModal = () => {
-      this.props.clearOrder();
+      clearOrder();
    };
 
    const removeFromCartHandler = (item) => {
@@ -141,7 +139,7 @@ const Cart = () => {
                   {showCheckout && (
                      <Fade right cascade>
                         <div className="cart">
-                           <form onSubmit={createOrder}>
+                           <form onSubmit={(e) => createOrderHandler(e)}>
                               <ul className="form-container">
                                  <li>
                                     <label>Email</label>
@@ -149,7 +147,7 @@ const Cart = () => {
                                        name="email"
                                        type="email" 
                                        required 
-                                       onChange={this.handleInput}
+                                       onChange={setEmail}
                                     ></input>
                                  </li>
                                  <li>
@@ -158,7 +156,7 @@ const Cart = () => {
                                        name="name"
                                        type="text" 
                                        required 
-                                       onChange={this.handleInput}
+                                       onChange={setName}
                                     ></input>
                                  </li>
                                  <li>
@@ -167,7 +165,7 @@ const Cart = () => {
                                        name="address"
                                        type="text" 
                                        required 
-                                       onChange={this.handleInput}
+                                       onChange={setAddress}
                                     ></input>
                                  </li>
                                  <li>
