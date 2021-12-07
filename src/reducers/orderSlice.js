@@ -1,4 +1,4 @@
-import { CLEAR_CART, CLEAR_ORDER, CREATE_ORDER, FETCH_ORDERS } from "../types";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const createOrder = (order) => (dispatch) => {
    fetch('/api/orders', {
@@ -14,24 +14,44 @@ export const createOrder = (order) => (dispatch) => {
          payload: data
       });
       localStorage.clear('cartItems');
-      dispatch({
-         type: CLEAR_CART
-      });
-   });
-};
-
-export const clearOrder = () => (dispatch) => {
-   dispatch({
-      type: CLEAR_ORDER
+      // dispatch({
+      //    type: CLEAR_CART
+      // });
    });
 };
 
 export const fetchOrders = () => (dispatch) => {
    fetch('/api/orders').then((res) => res.json())
       .then(data => {
-         dispatch({ 
-            type: FETCH_ORDERS, 
-            payload: data
-         });
+         // dispatch({ 
+         //    type: FETCH_ORDERS, 
+         //    payload: data
+         // });
       })
 };
+
+// export const clearOrder = () => (dispatch) => {
+//    return { order: null};
+//    dispatch({
+//       type: CLEAR_ORDER
+//    });
+// };
+
+const orderSlice = createSlice({
+   name: 'order',
+   initialState: [
+
+   ],
+   reducers: {
+      clearOrder: (state, action) => {
+         return { order: null };
+      }
+   },
+   extraReducers: {
+
+   }
+});
+
+export const {} = orderSlice.actions;
+
+export default orderSlice.reducer;

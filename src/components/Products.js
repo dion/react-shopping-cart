@@ -10,7 +10,7 @@ import { fetchProductsAsync } from '../reducers/productSlice';
 import { addToCart } from '../reducers/cartSlice';
 
 const Products = () => {
-   const products = useSelector((state) => state.products);
+   const products = useSelector((state) => state.products.filteredItems);
    const dispatch = useDispatch();
    const [product, setProduct] = useState(null);
    

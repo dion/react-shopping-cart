@@ -67,7 +67,7 @@ const productSlice = createSlice({
       [fetchProductsAsync.fulfilled]: (state, action) => {
          return {
             items: action.payload.products,
-            filteredItems: []
+            filteredItems: action.payload.products
          };
       }
    }
