@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
 
 import { removeFromCart } from '../reducers/cartSlice';
-import { clearOrder, createOrder  } from '../reducers/orderSlice';
+import { clearOrder, createOrderAsync } from '../reducers/orderSlice';
 
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
@@ -30,7 +30,7 @@ const Cart = () => {
          total: cartItems.reduce((a,c) => a + c.price * c.count, 0),
       };
       console.log('createOrderHandler', order);      
-      createOrder(order);
+      createOrderAsync(order);
    };
 
    const closeModal = () => {
@@ -54,10 +54,10 @@ const Cart = () => {
          {order && (
             <Modal
                isOpen={true}
-               onRequestClose={this.closeModal}   
+               onRequestClose={closeModal}   
             >
                <Zoom>
-                  <button className="close-modal" onClick={this.closeModal}>x</button>
+                  <button className="close-modal" onClick={closeModal}>x</button>
                   <div className="order-details">
                      <h3 className="success-message">Your order has been placed.</h3>
                      <h2>Order {order._id}</h2>
@@ -84,11 +84,12 @@ const Cart = () => {
                         </li>
                         <li>
                            <div>Cart Items:</div>
-                           <div>{order.cartItems.map(x => (
-                              <div>
-                                 {x.count} {' x '} {x.title}
-                              </div>
-                           ))}
+                           <div>
+                              {/* {order.cartItems.map(x => (
+                                 <div>
+                                    {x.count} {' x '} {x.title}
+                                 </div>
+                              ))} */}
                            </div>
                         </li>
                         

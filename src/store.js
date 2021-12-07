@@ -8,6 +8,6 @@ export const store = configureStore({
    reducer: {
       products: productsReducer,
       cartItems: cartReducer,
-      //order: orderReducer,
+      order: orderReducer,
    },
 });
