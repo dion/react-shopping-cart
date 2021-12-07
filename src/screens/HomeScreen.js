@@ -8,7 +8,7 @@ const Homescreen = () => {
       <div>
          <div className="content">
                <div className="main">
-               {/* <Filter /> */}
+               <Filter />
                <Products />
                </div>
                <div className="sidebar">
