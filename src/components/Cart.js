@@ -12,8 +12,6 @@ import { clearOrder, createOrderAsync } from '../reducers/orderSlice';
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
    const order = useSelector((state) => state.order);
-
-   console.log('order', order);
    const dispatch = useDispatch();
 
    const [name, setName] = useState('');

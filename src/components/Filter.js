@@ -3,22 +3,41 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { filterProducts, sortProducts } from '../reducers/productSlice';
 
-// TODO: change to functional component, bring in react hooks, add useDispatch
 const Filter = () => {
+   const filteredItems = useSelector((state) => state.products.filteredItems);
+   const products = useSelector((state) => state.products.items);
+   const sort = useSelector((state) => state.products.sort);
+   const size = useSelector((state) => state.products.size);
    const dispatch = useDispatch();
+
+   console.log('filteredItems', filteredItems);
    
-   return !this.props.filteredProducts ? (
+   const sortProductsHandler = (value) => {
+      // dispatch sortProducts
+      dispatch(
+         sortProducts(value)
+      );
+   };
+
+   const filterProductsHandler = (value) => {
+      // dispatch filterProducts
+      dispatch(
+         filterProducts(value)
+      );
+   };
+
+   return !filteredItems ? (
       <div>Loading...</div>
    ) : (
       <div className="filter">
          <div className="filter-result">
-            {this.props.filteredProducts.length} Products
+            {filteredItems.length} Products
          </div>
          <div className="filter-sort">
             Order{' '}
             <select 
-               value={this.props.sort} 
-               onChange={(e) => this.props.sortProducts(this.props.filteredProducts, e.target.value)}
+               value={sort} 
+               onChange={(e) => sortProductsHandler(e.target.value)}
             >
                <option value="latest">Latest</option>
                <option value="lowest">Lowest</option>
@@ -28,8 +47,8 @@ const Filter = () => {
          <div className="filter-size">
             Filter{' '} 
             <select 
-               value={this.props.size} 
-               onChange={(e) => this.props.filterProducts(this.props.products, e.target.value)}
+               value={size} 
+               onChange={(e) => filterProductsHandler(e.target.value)}
             >
                <option value="">ALL</option>
                <option value="XS">XS</option>

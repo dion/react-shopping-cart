@@ -15,60 +15,60 @@ export const fetchProductsAsync = createAsyncThunk(
 
 const productSlice = createSlice({
    name: 'products',
-   initialState: [
-      // {
-      //    _id: "dress1",
-      //    image: "/images/dress1.jpg",
-      //    title: "Midi sundress with shirring detail",
-      //    description: "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
-      //    availableSizes: ["X", "L", "XL", "XXL"],
-      //    price: 29.9
-      // }
-   ],
+   initialState: {
+      items: [
+         // {
+         //    _id: "dress1",
+         //    image: "/images/dress1.jpg",
+         //    title: "Midi sundress with shirring detail",
+         //    description: "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
+         //    availableSizes: ["X", "L", "XL", "XXL"],
+         //    price: 29.9,
+         //    count: 1
+         // }
+      ],
+      filteredItems: [],
+      sort: '',
+      size: '',
+   },
    reducers: {
       filterProducts: (state, action) => {
-         // payload: {
-         //    size: size,
-         //    items: size === '' ? products : products.filter(x => x.availableSizes.indexOf(size) >= 0),
-         // }
-         if (action.payload.size === '') {
-            return state;
+         state.size = action.payload;
+
+         if (action.payload == '') {
+            state.filteredItems = state.items;
          } else {
-            return state.filter(
-               x => x.availableSizes.indexOf(action.payload.size) >= 0
+            const result = state.items.filter(
+               x => x.availableSizes.indexOf(action.payload) >= 0
             );
+
+            state.filteredItems = result;
          }
+         
+         return state;
       },
       sortProducts: (state, action) => {
-         // const sortedProducts = action.payload.filteredProducts.slice();
+         state.sort = action.payload;
+         const sortedProducts = state.filteredItems;
 
-         // if (action.payload.sort === 'latest') {
-         //    sortedProducts.sort((a, b) => (a._id > b._id ? 1 : -1));
-         // } else {
-         //    sortedProducts.sort((a, b) => (
-         //       sort === 'lowest' ? 
-         //       a.price > b.price ? 1 : -1
-         //       :
-         //       a.price > b.price ? -1 : 1
-         //    ));
-         // }
-         // dispatch({
-         //    type: ORDER_PRODUCTS_BY_PRICE,
-         //    payload: {
-         //       sort: sort,
-         //       items: sortedProducts
-         //    }
-         // });
+         if (action.payload === 'latest') {
+            sortedProducts.sort((a, b) => (a._id > b._id ? 1 : -1));
+         } else {
+            sortedProducts.sort((a, b) => (
+               action.payload === 'lowest' ? 
+               a.price > b.price ? 1 : -1
+               :
+               a.price > b.price ? -1 : 1
+            ));
+         }
          
          return state;
       }
    },
    extraReducers: {
       [fetchProductsAsync.fulfilled]: (state, action) => {
-         return {
-            items: action.payload.products,
-            filteredItems: action.payload.products
-         };
+         state.items = action.payload.products;
+         state.filteredItems = action.payload.products;
       }
    }
 });
@@ -76,36 +76,3 @@ const productSlice = createSlice({
 export const { filterProducts, sortProducts } = productSlice.actions;
 
 export default productSlice.reducer;
-
-// export const filterProducts = (products, size) => (dispatch) => {
-//    dispatch({
-//       type: FILTER_PRODUCTS_BY_SIZE,
-//       payload: {
-//          size: size,
-//          items: size === '' ? products : products.filter(x => x.availableSizes.indexOf(size) >= 0),
-//       }
-//    });
-// };
-
-// export const sortProducts = (filteredProducts, sort) => (dispatch) => {
-//    const sortedProducts = filteredProducts.slice();
-
-//    if (sort === 'latest') {
-//       sortedProducts.sort((a, b) => (a._id > b._id ? 1 : -1));
-//    } else {
-//       sortedProducts.sort((a, b) => (
-//          sort === 'lowest' ? 
-//          a.price > b.price ? 1 : -1
-//          :
-//          a.price > b.price ? -1 : 1
-//       ));
-//    }
-//    dispatch({
-//       type: ORDER_PRODUCTS_BY_PRICE,
-//       payload: {
-//          sort: sort,
-//          items: sortedProducts
-//       }
-//    });
-// };
-
