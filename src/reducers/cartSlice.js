@@ -1,38 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const addToCartAsync = createAsyncThunk(
-   'cart/addToCartAsync', 
-   async (payload) => {
-      const cartItems = payload;
-      let alreadyExists = false;
-
-      cartItems.forEach(x => {
-         if (x._id === payload.product._id) {
-            alreadyExists = true;
-            x.count++;
-         }
-      });
-
-      if (!alreadyExists) {
-         cartItems.push({
-            ...payload.product,
-            count: 1
-         });
-         // localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      }
-   }
-);
-
-// export const removeFromCart = (product) => (dispatch, getState) => {
-//    const cartItems = getState()
-//      .cart.cartItems.slice()
-//      .filter((x) => x._id !== product._id);
-//    dispatch({ type: REMOVE_FROM_CART, payload: { cartItems } });
-//    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-// };
-
 const cartSlice = createSlice({
-   name: 'cart',
+   name: 'cartItems',
    initialState: [
       // {
       //    _id: "dress1",
@@ -46,39 +15,27 @@ const cartSlice = createSlice({
    ],
    reducers: {
       addToCart: (state, action) => {
-         const cartItems = state.slice(); //getState().cart.cartItems.slice();
-         let alreadyExists = false;
-   
-         cartItems.forEach(x => {
-            if (x._id === action.payload.product._id) {
-               alreadyExists = true;
-               x.count++;
-            }
-         });
-   
-         if (!alreadyExists) {
-            cartItems.push({
-               ...action.payload.product,
+         const index = state.findIndex(
+            (item) => item._id === action.payload._id
+         );
+
+         if (index > -1) {
+            state[index].count = state[index].count++;
+         } else {
+            state.push({
+               ...action.payload,
                count: 1
             });
-            // localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            localStorage.setItem('cartItems', JSON.stringify(state));
          }
       },
       removeFromCart: (state, action) => {
-         // const cartItems = getState()
-         //    .cart.cartItems.slice()
-         //    .filter((x) => x._id !== product._id);
-
-         // localStorage.setItem("cartItems", JSON.stringify(cartItems));
-         return state;
+         return state.filter((x) => x._id !== action.payload._id);
+         // localStorage.setItem("cartItems", JSON.stringify(state));
+         // return state;
       }
    },
-   extraReducers: {
-      [addToCartAsync.fulfilled]: (state, action) => {
-         // do something
-         //return 
-      }
-   }
+   extraReducers: {}
 });
 
 export const { addToCart, removeFromCart } = cartSlice.actions;

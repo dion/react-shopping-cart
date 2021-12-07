@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import formatCurrency from '../util';
 import Fade from 'react-reveal/Fade';
-import { removeFromCart } from '../reducers/cartSlice';
-import { clearOrder, createOrder  } from '../reducers/orderActions';
 import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
 
+import { removeFromCart } from '../reducers/cartSlice';
+import { clearOrder, createOrder  } from '../reducers/orderActions';
+
 const Cart = () => {
-   const cartItems = useSelector((state) => cartItems);
-   const order = useSelector((state) => order);
+   const cartItems = useSelector((state) => state.cartItems);
+   const order = useSelector((state) => state.order);
+   const dispatch = useDispatch();
 
    const [name, setName] = useState('');
    const [email, setEmail] = useState('');
@@ -26,14 +29,18 @@ const Cart = () => {
          name: this.state.name,
          email: this.state.email,
          address: this.state.address,
-         cartItems: this.props.cartItems,
-         total: this.props.cartItems.reduce((a,c) => a + c.price * c.count, 0),
+         cartItems: cartItems,
+         total: cartItems.reduce((a,c) => a + c.price * c.count, 0),
       };
       this.props.createOrder(order);
    };
 
    const closeModal = () => {
       this.props.clearOrder();
+   };
+
+   const removeFromCartHandler = (item) => {
+      dispatch(removeFromCart(item));
    };
 
    return (
@@ -105,7 +112,7 @@ const Cart = () => {
                               <div>{item.title}</div>
                               <div className="right">
                                  {formatCurrency(item.price)} x {item.count}{' '}
-                                 <button className="button" onClick={() => removeFromCart(item)}>
+                                 <button className="button" onClick={() => removeFromCartHandler(item)}>
                                     Remove
                                  </button>
                               </div>
@@ -115,7 +122,7 @@ const Cart = () => {
                   </ul>
                </Fade>
             </div>
-            {cartItems.length !== 0 && (
+            {cartItems.length > 0 && (
                <div>
                   <div className="cart">
                      <div className="total">
@@ -125,16 +132,16 @@ const Cart = () => {
                         )}
                      </div>
                      <button 
-                        onClick={() => this.setState({showCheckout: true})} 
+                        onClick={() => setShowCheckout(true)} 
                         className="button primary"
                      >
                         Proceed
                      </button>
                   </div>
-                  {this.state.showCheckout && (
+                  {showCheckout && (
                      <Fade right cascade>
                         <div className="cart">
-                           <form onSubmit={this.createOrder}>
+                           <form onSubmit={createOrder}>
                               <ul className="form-container">
                                  <li>
                                     <label>Email</label>

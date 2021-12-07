@@ -65,7 +65,6 @@ const productSlice = createSlice({
    },
    extraReducers: {
       [fetchProductsAsync.fulfilled]: (state, action) => {
-         console.log('action.payload', action);
          return action.payload.products;
       }
    }
