@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { filterProducts, sortProducts } from '../reducers/productSlice';
 
+// TODO: change to functional component, bring in react hooks
 class Filter extends Component {
    render() {
       return !this.props.filteredProducts ? (

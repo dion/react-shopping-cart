@@ -1,6 +1,6 @@
 import React from 'react';
-// import Cart from '../components/Cart';
-// import Filter from '../components/Filter';
+import Cart from '../components/Cart';
+//import Filter from '../components/Filter';
 import Products from '../components/Products';
 
 const Homescreen = () => {
@@ -12,7 +12,7 @@ const Homescreen = () => {
                <Products />
                </div>
                <div className="sidebar">
-               {/* <Cart /> */}
+               <Cart />
                </div>
          </div>
       </div>

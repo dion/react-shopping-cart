@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-//import { FETCH_PRODUCTS, FILTER_PRODUCTS_BY_SIZE, ORDER_PRODUCTS_BY_PRICE } from "../types";
 
 export const fetchProductsAsync = createAsyncThunk(
    'products/fetchProductsAsync',
@@ -41,9 +40,9 @@ const productSlice = createSlice({
          }
       },
       sortProducts: (state, action) => {
-         // const sortedProducts = filteredProducts.slice();
+         // const sortedProducts = action.payload.filteredProducts.slice();
 
-         // if (sort === 'latest') {
+         // if (action.payload.sort === 'latest') {
          //    sortedProducts.sort((a, b) => (a._id > b._id ? 1 : -1));
          // } else {
          //    sortedProducts.sort((a, b) => (

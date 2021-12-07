@@ -7,12 +7,11 @@ import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
 
 import { fetchProductsAsync } from '../reducers/productSlice';
-import { addToCart } from '../reducers/cartActions';
+import { addToCart } from '../reducers/cartSlice';
 
 const Products = () => {
    const products = useSelector((state) => state.products);
    const dispatch = useDispatch();
-
    const [product, setProduct] = useState(null);
    
    useEffect(() => {
@@ -21,14 +20,18 @@ const Products = () => {
       );
    }, [dispatch]);
 
-   const openModal = (product) => {
-      setProduct({ product });
-      //this.setState({ product });
+   const openModal = (id) => {
+      const result = products.find((product) => product._id === id);
+      
+      if (result) {
+         setProduct(result);
+      } else {
+         setProduct(null);
+      }
    };
 
    const closeModal = () => {
-      setProduct({ product: null });
-      //this.setState({ product: null });
+      setProduct(null);
    };
 
    return (
@@ -40,7 +43,7 @@ const Products = () => {
                   {products.map(product => (
                      <li key={product._id}>
                         <div className="product">
-                           <a href={"#" + product._id} onClick={() => openModal(product)}>
+                           <a href={"#" + product._id} onClick={() => openModal(product._id)}>
                               <img src={product.image} alt={product.title} />
                               <p>
                                  {product.title}
@@ -50,7 +53,7 @@ const Products = () => {
                               <div>
                                  {formatCurrency(product.price)}
                               </div>
-                              <button onClick={() => this.props.addToCart(product)} className="button primary">
+                              <button onClick={() => addToCart(product)} className="button primary">
                                  Add To Cart
                               </button>
                            </div>
@@ -60,11 +63,13 @@ const Products = () => {
                </ul>)
             }
          </Fade>
+         {/* change product to useSelector */}
          {
             product && (
                <Modal 
                   isOpen={true}
                   onRequestClose={closeModal}
+                  ariaHideApp={false}
                >
                   <Zoom>
                      <button className="close-modal" onClick={closeModal}>
@@ -91,7 +96,7 @@ const Products = () => {
                            <div className="product-price">
                               <div>{formatCurrency(product.price)}</div>
                               <button className="button primary" onClick={() => {
-                                 this.props.addToCart(product);
+                                 addToCart(product);
                                  closeModal();
                               }}>
                                  Add To Cart
@@ -108,7 +113,3 @@ const Products = () => {
 }
 
 export default Products;
-// export default connect((state) => ({ products: state.products.filteredItems }), {
-//    fetchProducts,
-//    addToCart
-// })(Products);
