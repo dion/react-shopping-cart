@@ -57,7 +57,7 @@ const orderSlice = createSlice({
    },
    extraReducers: {
       [fetchOrdersAsync.fulfilled]: (state, action) => {
-         return { orders: action.payload };
+         return action.payload;
       },
       [createOrderAsync.fulfilled]: (state, action) => {
          return action.payload;

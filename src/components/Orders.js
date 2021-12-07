@@ -4,7 +4,7 @@ import { fetchOrdersAsync } from '../reducers/orderSlice';
 import formatCurrency from '../util';
 
 const Orders = () => {
-   const orders = useSelector((state) => state.orders);
+   const orders = useSelector((state) => state.order.orders);
    const dispatch = useDispatch();
 
    useEffect(() => {
@@ -12,8 +12,7 @@ const Orders = () => {
          fetchOrdersAsync()
       );
    }, [dispatch])
-   
-   //const { orders } = this.props;
+
    return !orders ? <div>Orders</div> : (
       <div className="orders">
          <h2>Orders</h2>
