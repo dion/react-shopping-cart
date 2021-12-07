@@ -14,7 +14,7 @@ export const createOrderAsync = createAsyncThunk(
       if (response.ok) {
          const order = await response.json();
          localStorage.clear('cartItems');
-         return { order };
+         return order;
       }
    }
 );
@@ -57,10 +57,7 @@ const orderSlice = createSlice({
    },
    extraReducers: {
       [fetchOrdersAsync.fulfilled]: (state, action) => {
-         //return action.payload;
          return { orders: action.payload };
-         // console.log('action.payload', action.payload);
-         // return action.payload;
       },
       [createOrderAsync.fulfilled]: (state, action) => {
          return action.payload;

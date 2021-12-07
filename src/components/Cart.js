@@ -58,7 +58,7 @@ const Cart = () => {
             </div>
          )}
 
-         {order && (
+         {order.length !== 0 && (
             <Modal
                isOpen={orderModalState}
                onRequestClose={closeModal}
@@ -93,11 +93,11 @@ const Cart = () => {
                         <li>
                            <div>Cart Items:</div>
                            <div>
-                              {/* {order.cartItems.map(x => (
+                              {order.cartItems && order.cartItems.map(x => (
                                  <div>
                                     {x.count} {' x '} {x.title}
                                  </div>
-                              ))} */}
+                              ))}
                            </div>
                         </li>
                         
