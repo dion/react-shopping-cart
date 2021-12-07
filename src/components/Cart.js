@@ -12,12 +12,15 @@ import { clearOrder, createOrderAsync } from '../reducers/orderSlice';
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
    const order = useSelector((state) => state.order);
+
+   console.log('order', order);
    const dispatch = useDispatch();
 
    const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [address, setAddress] = useState('');
    const [showCheckout, setShowCheckout] = useState('');
+   const [orderModalState, setOrderModalState] = useState(false);
 
    const createOrderHandler = (e) => {
       e.preventDefault();
@@ -29,11 +32,15 @@ const Cart = () => {
          cartItems: cartItems,
          total: cartItems.reduce((a,c) => a + c.price * c.count, 0),
       };
-      console.log('createOrderHandler', order);      
-      createOrderAsync(order);
+      console.log('createOrderHandler', order);
+      dispatch(
+         createOrderAsync(order)
+      );
+      setOrderModalState(true);
    };
 
    const closeModal = () => {
+      setOrderModalState(false);
       clearOrder();
    };
 
@@ -53,8 +60,9 @@ const Cart = () => {
 
          {order && (
             <Modal
-               isOpen={true}
-               onRequestClose={closeModal}   
+               isOpen={orderModalState}
+               onRequestClose={closeModal}
+               ariaHideApp={false}
             >
                <Zoom>
                   <button className="close-modal" onClick={closeModal}>x</button>
@@ -148,7 +156,7 @@ const Cart = () => {
                                        name="email"
                                        type="email" 
                                        required 
-                                       onChange={setEmail}
+                                       onChange={(e) => setEmail(e.target.value)}
                                     ></input>
                                  </li>
                                  <li>
@@ -157,7 +165,7 @@ const Cart = () => {
                                        name="name"
                                        type="text" 
                                        required 
-                                       onChange={setName}
+                                       onChange={(e) => setName(e.target.value)}
                                     ></input>
                                  </li>
                                  <li>
@@ -166,7 +174,7 @@ const Cart = () => {
                                        name="address"
                                        type="text" 
                                        required 
-                                       onChange={setAddress}
+                                       onChange={(e) => setAddress(e.target.value)}
                                     ></input>
                                  </li>
                                  <li>

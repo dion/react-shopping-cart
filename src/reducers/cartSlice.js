@@ -20,7 +20,7 @@ const cartSlice = createSlice({
          );
 
          if (index > -1) {
-            state[index].count = state[index].count++;
+            state[index].count = state[index].count + 1;
          } else {
             state.push({
                ...action.payload,

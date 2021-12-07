@@ -3,41 +3,32 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const createOrderAsync = createAsyncThunk(
    'order/createOrderAsync',
    async (payload) => {
-      fetch('/api/orders', {
+      const response = await fetch('/api/orders', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
          },
-         body: JSON.stringify(payload.order)
-      }).then(res => res.json())
-      .then(data => {
-         const order = data.json();
-         // dispatch({
-         //    type: CREATE_ORDER,
-         //    payload: data
-         // });
+         body: JSON.stringify(payload)
+      });
+      
+      if (response.ok) {
+         const order = await response.json();
          localStorage.clear('cartItems');
          return { order };
-         // dispatch({
-         //    type: CLEAR_CART
-         // });
-      });
+      }
    }
 );
 
 export const fetchOrdersAsync = createAsyncThunk(
    'order/fetchOrdersAsync',
    async () => {
-      fetch('/api/orders').then((res) => res.json())
-      .then(data => {
-         const orders = data.json();
-         console.log("orders", orders);
+      const response = await fetch('/api/orders');
+
+      if (response.ok) {
+         const orders = await response.json();
+         
          return { orders };
-         // dispatch({ 
-         //    type: FETCH_ORDERS, 
-         //    payload: data
-         // });
-      })
+      }
    }
 ); 
 
@@ -66,8 +57,14 @@ const orderSlice = createSlice({
    },
    extraReducers: {
       [fetchOrdersAsync.fulfilled]: (state, action) => {
-         return action.payload.orders;
-      }
+         //return action.payload;
+         return { orders: action.payload };
+         // console.log('action.payload', action.payload);
+         // return action.payload;
+      },
+      [createOrderAsync.fulfilled]: (state, action) => {
+         return action.payload;
+      },
    }
 });
 
