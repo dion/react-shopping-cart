@@ -8,7 +8,7 @@ const App = () => {
     <BrowserRouter>
       <div className="grid-container">
         <header className="App-header">
-          <Link to="/">React Shopping Cart</Link>
+          <Link to="/">Apparel Shop</Link>
           <Link to="/admin">Admin</Link>
         </header>
         <main>
