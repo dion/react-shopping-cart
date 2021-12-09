@@ -9,6 +9,9 @@ import Zoom from 'react-reveal/Zoom';
 import { removeFromCart } from '../reducers/cartSlice';
 import { clearOrder, createOrderAsync } from '../reducers/orderSlice';
 
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
    const order = useSelector((state) => state.order);
@@ -19,6 +22,10 @@ const Cart = () => {
    const [address, setAddress] = useState('');
    const [showCheckout, setShowCheckout] = useState('');
    const [orderModalState, setOrderModalState] = useState(false);
+
+   // cart list
+   const [dense, setDense] = React.useState(false);
+   const [secondary, setSecondary] = React.useState(false);
 
    const createOrderHandler = (e) => {
       e.preventDefault();
@@ -48,13 +55,9 @@ const Cart = () => {
 
    return (
       <div>
-         {cartItems.length === 0 ? (
-            <div className="cart cart-header">Cart is empty</div>
-            ) : ( 
-            <div className="cart cart-header">
-               You have {cartItems.length} in the cart
-            </div>
-         )}
+         <Typography gutterBottom gutterTop variant="h5" component="div" sx={{ margin: '5rem 1rem 0' }}>
+            My Cart
+         </Typography>
 
          {order.length !== 0 && (
             <Modal
@@ -105,6 +108,46 @@ const Cart = () => {
             </Modal>
          )}
          <div>
+            {cartItems.map(item => (
+               <Box sx={{ 
+                  width: '100%',
+                  display: 'flex', alignItems: 'center', xjustifyContent: 'space-between', 
+                  textAlign: 'center', margin: '1rem' 
+               }}>
+                  <div>
+                     <img 
+                        src={item.image} 
+                        alt={item.title} 
+                        style={{ maxHeight: '102px' }}
+                     />
+                  </div>
+                  <Box sx={{
+                     padding: '.5rem', margin: '.5rem'
+                  }}>
+                     <div>
+                        <Typography noWrap>
+                           {item.title}
+                        </Typography>
+                     </div>
+                     <Box sx={{
+                        display: 'flex', alignItems: 'left', justifyContent: 'space-between', 
+                        textAlign: 'left', flexWrap: 'wrap'
+                     }}>
+                        <div>
+                           <Typography>
+                              {item.count} pcs
+                           </Typography>
+                        </div> 
+                        <div>
+                           <Typography>
+                              {formatCurrency(item.price)}
+                           </Typography>
+                        </div>
+                     </Box>
+                  </Box>
+               </Box>
+            ))}
+
             <div className="cart">
                <Fade left cascade>
                   <ul className="cart-items">

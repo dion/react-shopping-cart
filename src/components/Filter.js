@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
 
 const Filter = () => {
    const filteredItems = useSelector((state) => state.products.filteredItems);
@@ -34,11 +35,23 @@ const Filter = () => {
    return !filteredItems ? (
       <div>Loading...</div>
    ) : (
-      <div>
-         <Box sx={{ 
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
-            textAlign: 'center', padding: '1rem', margin: '1rem' }}>
-            <Typography sx={{ minWidth: 100 }} variant="h5">{filteredItems.length} Products</Typography>
+      <Grid container sx={{ 
+         display: 'flex', 
+         alignItems: 'center',
+         padding: '1rem', 
+         xmargin: '1rem' 
+      }}>
+         <Grid item xs={8}>
+            <Typography sx={{ minWidth: 100 }} variant="subtitle2">{filteredItems.length} Products</Typography>
+         </Grid>
+
+         <Grid 
+            item 
+            xs={4}
+            container
+            xdirection="row"
+            justifyContent="space-between"
+         >
             <FormControl xfullWidth sx={{ m: 1, minWidth: 80 }}>
                <InputLabel id="demo-simple-select-label">Order</InputLabel>
                <Select
@@ -72,8 +85,8 @@ const Filter = () => {
                   <MenuItem value={'XXL'}>XXL</MenuItem>
                </Select>
             </FormControl>
-         </Box>
-      </div>
+         </Grid>
+      </Grid>
    );
 };
 

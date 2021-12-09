@@ -16,6 +16,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import { Box } from '@mui/system';
 
 const Products = () => {
    const products = useSelector((state) => state.products.filteredItems);
@@ -49,59 +50,59 @@ const Products = () => {
    };
 
    return (
-      <div>
+      <Grid container xdirection="column">
          <Fade bottom cascade>
             {
                !products ? (<div>Loading...</div>) :
-               (<ul className="products">
+               (
+               <Grid container>
                   {products.map(product => (
-                     <li key={product._id}>
-                        <Card 
-                           variant="outlined"
-                           sx={{ xmaxWidth: 345 }}
-                        >
+                     <Box
+                        sx={{ maxWidth: '28%', margin: '0 1.5rem 2.5rem' }}
+                        key={product._id}
+                     >
+                        <Card>
                            <CardActionArea>
-                           <CardMedia
-                              component="img"
-                              image={product.image}
-                              alt={product.title}
-                              href={"#" + product._id} 
-                              onClick={() => openModal(product._id)}
-                           />
-                           <CardContent>
-                              <Typography gutterBottom variant="h5" component="div">
-                                 {product.title}
-                              </Typography>
-                           </CardContent>
+                              <CardMedia
+                                 component="img"
+                                 image={product.image}
+                                 alt={product.title}
+                                 href={"#" + product._id} 
+                                 onClick={() => openModal(product._id)}
+                              />
                            </CardActionArea>
-                           <CardActions>
-                              <Grid container>
-                                 <Grid item sx={{ width: '100%' }}>
-                                    <Grid container justifyContent="space-between" align-items="center">
-                                       <Grid item>
-                                          <Typography gutterBottom variant="h5" component="div" ml={1} mr={2}>
-                                             {formatCurrency(product.price)}
-                                          </Typography>      
-                                       </Grid>
-                                       <Grid item justifyContent="flex-end">
-                                          <Button 
-                                             variant="contained"
-                                             size="large" 
-                                             color="primary"
-                                             onClick={() => addToCartHandler(product)}
-                                             xclassName="button primary"
-                                          >
-                                             Add To Cart
-                                          </Button>
-                                       </Grid>
-                                    </Grid>
+                        </Card>
+                        
+                        <Typography gutterBottom variant="subtitle1" component="div" mt={2}>
+                           {product.title}
+                        </Typography>
+
+                        <Grid container>
+                           <Grid item sx={{ width: '100%' }}>
+                              <Grid container justifyContent="space-between" align-items="center">
+                                 <Grid item>
+                                    <Typography gutterBottom variant="subtitle1">
+                                       {formatCurrency(product.price)}
+                                    </Typography>      
+                                 </Grid>
+                                 <Grid item justifyContent="flex-end">
+                                    <Button 
+                                       variant="contained"
+                                       size="small" 
+                                       color="secondary"
+                                       onClick={() => addToCartHandler(product)}
+                                       style={{ textTransform: 'none' }}
+                                    >
+                                       Add To Cart
+                                    </Button>
                                  </Grid>
                               </Grid>
-                           </CardActions>
-                        </Card>
-                     </li>
+                           </Grid>
+                        </Grid>
+                     </Box>
                   ))}
-               </ul>)
+               </Grid>
+               )
             }
          </Fade>
          {
@@ -148,7 +149,7 @@ const Products = () => {
                </Modal>
             )
          }
-      </div>
+      </Grid>
    );
 }
 

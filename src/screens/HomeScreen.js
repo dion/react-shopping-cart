@@ -3,19 +3,20 @@ import Cart from '../components/Cart';
 import Filter from '../components/Filter';
 import Products from '../components/Products';
 
+// mui imports
+import Grid from '@mui/material/Grid';
+
 const Homescreen = () => {
    return (
-      <div>
-         <div className="content">
-               <div className="main">
-               <Filter />
-               <Products />
-               </div>
-               <div className="sidebar">
-               <Cart />
-               </div>
-         </div>
-      </div>
+      <Grid container>
+         <Grid item xs={12} sm={8}>
+            <Filter />
+            <Products />
+         </Grid>
+         <Grid item xs={12} sm={4}>
+            <Cart />
+         </Grid>
+      </Grid>
    );
 }
 
