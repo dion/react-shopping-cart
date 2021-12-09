@@ -9,6 +9,14 @@ import Zoom from 'react-reveal/Zoom';
 import { fetchProductsAsync } from '../reducers/productSlice';
 import { addToCart } from '../reducers/cartSlice';
 
+// MUI imports
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
+import Grid from '@mui/material/Grid';
+
 const Products = () => {
    const products = useSelector((state) => state.products.filteredItems);
    const dispatch = useDispatch();
@@ -48,28 +56,54 @@ const Products = () => {
                (<ul className="products">
                   {products.map(product => (
                      <li key={product._id}>
-                        <div className="product">
-                           <a href={"#" + product._id} onClick={() => openModal(product._id)}>
-                              <img src={product.image} alt={product.title} />
-                              <p>
+                        <Card 
+                           variant="outlined"
+                           sx={{ xmaxWidth: 345 }}
+                        >
+                           <CardActionArea>
+                           <CardMedia
+                              component="img"
+                              image={product.image}
+                              alt={product.title}
+                              href={"#" + product._id} 
+                              onClick={() => openModal(product._id)}
+                           />
+                           <CardContent>
+                              <Typography gutterBottom variant="h5" component="div">
                                  {product.title}
-                              </p>
-                           </a>
-                           <div className="product-price">
-                              <div>
-                                 {formatCurrency(product.price)}
-                              </div>
-                              <button onClick={() => addToCartHandler(product)} className="button primary">
-                                 Add To Cart
-                              </button>
-                           </div>
-                        </div>
+                              </Typography>
+                           </CardContent>
+                           </CardActionArea>
+                           <CardActions>
+                              <Grid container>
+                                 <Grid item sx={{ width: '100%' }}>
+                                    <Grid container justifyContent="space-between" align-items="center">
+                                       <Grid item>
+                                          <Typography gutterBottom variant="h5" component="div" ml={1} mr={2}>
+                                             {formatCurrency(product.price)}
+                                          </Typography>      
+                                       </Grid>
+                                       <Grid item justifyContent="flex-end">
+                                          <Button 
+                                             variant="contained"
+                                             size="large" 
+                                             color="primary"
+                                             onClick={() => addToCartHandler(product)}
+                                             xclassName="button primary"
+                                          >
+                                             Add To Cart
+                                          </Button>
+                                       </Grid>
+                                    </Grid>
+                                 </Grid>
+                              </Grid>
+                           </CardActions>
+                        </Card>
                      </li>
                   ))}
                </ul>)
             }
          </Fade>
-         {/* change product to useSelector */}
          {
             product && (
                <Modal 
@@ -92,12 +126,12 @@ const Products = () => {
                            </p>
                            <p>
                               Available Sizes: {' '}
-                              {/* {product.availableSizes.map(x => (
+                              {product.availableSizes.map(x => (
                                  <span> 
                                     {' '}
                                     <button className="button">{x}</button>
                                  </span>
-                              ))} */}
+                              ))}
                            </p>
                            <div className="product-price">
                               <div>{formatCurrency(product.price)}</div>

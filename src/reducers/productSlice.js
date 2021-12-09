@@ -35,7 +35,7 @@ const productSlice = createSlice({
       filterProducts: (state, action) => {
          state.size = action.payload;
 
-         if (action.payload == '') {
+         if (action.payload === '') {
             state.filteredItems = state.items;
          } else {
             const result = state.items.filter(
