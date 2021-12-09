@@ -52,7 +52,7 @@ const Filter = () => {
             xdirection="row"
             justifyContent="space-between"
          >
-            <FormControl xfullWidth sx={{ m: 1, minWidth: 80 }}>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                <InputLabel id="demo-simple-select-label">Order</InputLabel>
                <Select
                   labelId="demo-simple-select-label"
@@ -67,7 +67,7 @@ const Filter = () => {
                </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
                <InputLabel id="demo-simple-select-label">Filter</InputLabel>
                <Select
                   labelId="demo-simple-select-label"

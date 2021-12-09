@@ -1,5 +1,5 @@
 export default function formatCurrency(num) {
    if (num) {
-      return '$' + Number(num.toFixed(1)).toLocaleString() + ' ';
+      return '$' + Number(num.toFixed(2)).toLocaleString() + ' ';
    }
 }

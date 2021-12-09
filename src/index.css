@@ -129,7 +129,7 @@ footer {
 } */
 
 /* cart */
-.cart {
+/* .cart {
   padding: 1rem;
   margin: 1rem;
   display: flex;
@@ -153,8 +153,8 @@ footer {
 }
 .cart-items li div:last-child {
   flex: 1;
-}
-.right {
+} */
+/* .right {
   text-align: right;
 }
 .total {
@@ -170,7 +170,7 @@ footer {
 .total > div,
 .total > button {
   flex: 1;
-}
+} */
 /* checkout form */
 form {
   width: 100%;

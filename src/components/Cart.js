@@ -11,6 +11,8 @@ import { clearOrder, createOrderAsync } from '../reducers/orderSlice';
 
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
@@ -22,10 +24,6 @@ const Cart = () => {
    const [address, setAddress] = useState('');
    const [showCheckout, setShowCheckout] = useState('');
    const [orderModalState, setOrderModalState] = useState(false);
-
-   // cart list
-   const [dense, setDense] = React.useState(false);
-   const [secondary, setSecondary] = React.useState(false);
 
    const createOrderHandler = (e) => {
       e.preventDefault();
@@ -55,10 +53,6 @@ const Cart = () => {
 
    return (
       <div>
-         <Typography gutterBottom gutterTop variant="h5" component="div" sx={{ margin: '5rem 1rem 0' }}>
-            My Cart
-         </Typography>
-
          {order.length !== 0 && (
             <Modal
                isOpen={orderModalState}
@@ -107,86 +101,109 @@ const Cart = () => {
                </Zoom>
             </Modal>
          )}
-         <div>
-            {cartItems.map(item => (
-               <Box sx={{ 
-                  width: '100%',
-                  display: 'flex', alignItems: 'center', xjustifyContent: 'space-between', 
-                  textAlign: 'center', margin: '1rem' 
-               }}>
-                  <div>
-                     <img 
-                        src={item.image} 
-                        alt={item.title} 
-                        style={{ maxHeight: '102px' }}
-                     />
-                  </div>
-                  <Box sx={{
-                     padding: '.5rem', margin: '.5rem'
+         <Grid
+            sx={{
+               margin: '1rem'      
+            }}
+         >
+            <Typography gutterBottom gutterTop variant="h5" component="div" sx={{ margin: '5rem 1rem 0' }}>
+               My Cart
+            </Typography>
+            {/* <Fade left cascade> */}
+               {cartItems.map(item => (
+                  <Box sx={{ 
+                     display: 'flex', alignItems: 'center',
+                     textAlign: 'center', margin: '1rem' 
                   }}>
                      <div>
-                        <Typography noWrap>
-                           {item.title}
-                        </Typography>
+                        <img 
+                           src={item.image} 
+                           alt={item.title} 
+                           style={{ maxHeight: '102px' }}
+                        />
                      </div>
                      <Box sx={{
-                        display: 'flex', alignItems: 'left', justifyContent: 'space-between', 
-                        textAlign: 'left', flexWrap: 'wrap'
+                        padding: '.5rem', margin: '.5rem'
                      }}>
                         <div>
-                           <Typography>
-                              {item.count} pcs
-                           </Typography>
-                        </div> 
-                        <div>
-                           <Typography>
-                              {formatCurrency(item.price)}
+                           <Typography noWrap>
+                              {item.title}
                            </Typography>
                         </div>
+                        <Box sx={{
+                           display: 'flex', alignItems: 'left', justifyContent: 'space-between', 
+                           textAlign: 'left', flexWrap: 'wrap'
+                        }}>
+                           <div>
+                              <Typography>
+                                 {item.count} pcs
+                              </Typography>
+                           </div> 
+                           <div>
+                              <Typography>
+                                 {formatCurrency(item.price)}
+                              </Typography>
+                              {/* <button className="button" onClick={() => removeFromCartHandler(item)}>
+                                 Remove
+                              </button> */}
+                           </div>
+                        </Box>
                      </Box>
                   </Box>
-               </Box>
-            ))}
+               ))}
+            {/* </Fade> */}
 
-            <div className="cart">
-               <Fade left cascade>
-                  <ul className="cart-items">
-                     {cartItems.map(item => (
-                        <li key={item._id}>
-                           <div>
-                              <img src={item.image} alt={item.title} />
-                           </div>
-                           <div>
-                              <div>{item.title}</div>
-                              <div className="right">
-                                 {formatCurrency(item.price)} x {item.count}{' '}
-                                 <button className="button" onClick={() => removeFromCartHandler(item)}>
-                                    Remove
-                                 </button>
-                              </div>
-                           </div>
-                        </li>
-                     ))}
-                  </ul>
-               </Fade>
-            </div>
             {cartItems.length > 0 && (
                <div>
-                  <div className="cart">
-                     <div className="total">
-                        Total:{' '}
-                        {formatCurrency(
-                           cartItems.reduce((a,c) => a + c.price * c.count, 0)
-                        )}
-                     </div>
-                     <button 
-                        onClick={() => setShowCheckout(true)} 
-                        className="button primary"
+                  <Box
+                     sx={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
+                        flexDirection: 'column',
+                        textAlign: 'center', margin: '1rem',
+                        borderTop: '1px solid #c0c0c0', pt: '1rem'
+                     }}
+                  >
+                     <Box
+                        sx={{
+                           width: '100%',
+                           display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
+                           flexDirection: 'row'
+                        }}
                      >
-                        Proceed
-                     </button>
-                  </div>
-                  {showCheckout && (
+                        <Box>
+                           <Typography variant="subtitle1">
+                              TOTAL:
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="subtitle1">
+                              {formatCurrency(
+                                 cartItems.reduce((a,c) => a + c.price * c.count, 0)
+                              )}
+                           </Typography>
+                        </Box>
+                     </Box>
+                     <Box
+                        sx={{
+                           width: '100%',
+                           mt: '3rem'
+                        }}
+                     >
+                        <Button 
+                           variant="contained"
+                           size="large" 
+                           color="secondary"
+                           onClick={() => setShowCheckout(true)} 
+                           sx={{ width: '100%' }}
+                        >
+                           Proceed
+                        </Button>
+                     </Box>
+                  </Box>
+
+                  
+               
+                  {/* {showCheckout && (
                      <Fade right cascade>
                         <div className="cart">
                            <form onSubmit={(e) => createOrderHandler(e)}>
@@ -225,10 +242,10 @@ const Cart = () => {
                            </form>
                         </div>
                      </Fade>
-                  )}
+                  )} */}
                </div>
             )}
-         </div>
+         </Grid>
       </div>
    );
 };

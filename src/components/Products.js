@@ -11,10 +11,9 @@ import { addToCart } from '../reducers/cartSlice';
 
 // MUI imports
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/system';
 
@@ -89,7 +88,7 @@ const Products = () => {
                                     <Button 
                                        variant="contained"
                                        size="small" 
-                                       color="secondary"
+                                       color="primary"
                                        onClick={() => addToCartHandler(product)}
                                        style={{ textTransform: 'none' }}
                                     >
