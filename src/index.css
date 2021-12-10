@@ -55,12 +55,6 @@ footer {
   flex: 1 1;
   margin: 1rem;
 }
-.close-modal {
-  position: absolute;
-  right: 1rem;
-  top: 2.5rem;
-  z-index: 1000;
-}
 
 /* Order Details */
 .order-details {

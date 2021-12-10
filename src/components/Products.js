@@ -108,39 +108,49 @@ const Products = () => {
                ariaHideApp={false}
             >
                <Zoom>
-                  <Button 
-                     variant="contained"
-                     size="small" 
-                     xclassName="close-modal" 
-                     onClick={closeModal}>
-                     x
-                  </Button>
+                  
                   <div className="product-details">
-                     <img src={product.image} alt={product.title} />
+                     <Button 
+                        variant="contained"
+                        size="small" 
+                        color="secondary"
+                        onClick={closeModal}
+                        sx={{ 
+                           position: 'absolute',
+                           right: 0,
+                           top: 0,
+                           zIndex: 100000
+                        }}
+                     >
+                        x
+                     </Button>
+                     <img src={product.image} alt={product.title} style={{ height: '80vh' }} />
                      <div className="product-details-description">
                         <Typography gutterBottom variant="h4" component="p">
                            <strong>{product.title}</strong>
+                        </Typography>
+                        <Typography gutterBottom variant="h2" component="div">
+                           <strong>{formatCurrency(product.price)}</strong>
                         </Typography>
                         <Typography gutterBottom variant="body" component="p">
                            {product.description}
                         </Typography>
                         
-                        <p>
-                           Available Sizes: {' '}
-                           {product.availableSizes.map(x => (
-                              <span> 
-                                 {' '}
-                                 <Button 
-                                    variant="contained"
-                                    size="small" 
-                                    xclassName="button"
-                                 >{x}</Button>
-                              </span>
-                           ))}
-                        </p>
+                        <Typography gutterBottom variant="subtitle1" component="p">
+                           <strong>SELECT SIZE:</strong>
+                        </Typography>
                         
-                        <div className="product-price">
-                           <div>{formatCurrency(product.price)}</div>
+                        <Grid container justifyContent="space-between" align-items="center" sm={4}>
+                           {product.availableSizes.map(x => (                              
+                              <Button 
+                                 variant="contained"
+                                 size="small" 
+                                 xclassName="button"
+                              >{x}</Button>
+                           ))}
+                        </Grid>
+
+                        <div className="product-price" style={{ marginTop: '1rem' }}>
                            <Button 
                               variant="contained"
                               size="large" 
