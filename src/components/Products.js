@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/system';
+//import Modal from '@mui/material/Modal';
 
 const Products = () => {
    const products = useSelector((state) => state.products.filteredItems);
@@ -51,10 +52,8 @@ const Products = () => {
    return (
       <Grid container xdirection="column">
          <Fade bottom cascade>
-            {
-               !products ? (<div>Loading...</div>) :
-               (
-               <Grid container>
+            {!products ? (<div>Loading...</div>) :
+               (<Grid container>
                   {products.map(product => (
                      <Box
                         sx={{ maxWidth: '28%', margin: '0 1.5rem 2.5rem' }}
@@ -100,54 +99,65 @@ const Products = () => {
                         </Grid>
                      </Box>
                   ))}
-               </Grid>
-               )
-            }
+               </Grid>)}
          </Fade>
-         {
-            product && (
-               <Modal 
-                  isOpen={true}
-                  onRequestClose={closeModal}
-                  ariaHideApp={false}
-               >
-                  <Zoom>
-                     <button className="close-modal" onClick={closeModal}>
-                        x
-                     </button>
-                     <div className="product-details">
-                        <img src={product.image} alt={product.title} />
-                        <div className="product-details-description">
-                           <p>
-                              <strong>{product.title}</strong>
-                           </p>
-                           <p>
-                              {product.description}
-                           </p>
-                           <p>
-                              Available Sizes: {' '}
-                              {product.availableSizes.map(x => (
-                                 <span> 
-                                    {' '}
-                                    <button className="button">{x}</button>
-                                 </span>
-                              ))}
-                           </p>
-                           <div className="product-price">
-                              <div>{formatCurrency(product.price)}</div>
-                              <button className="button primary" onClick={() => {
+         {product && (
+            <Modal 
+               isOpen={true}
+               onRequestClose={closeModal}
+               ariaHideApp={false}
+            >
+               <Zoom>
+                  <Button 
+                     variant="contained"
+                     size="small" 
+                     xclassName="close-modal" 
+                     onClick={closeModal}>
+                     x
+                  </Button>
+                  <div className="product-details">
+                     <img src={product.image} alt={product.title} />
+                     <div className="product-details-description">
+                        <Typography gutterBottom variant="h4" component="p">
+                           <strong>{product.title}</strong>
+                        </Typography>
+                        <Typography gutterBottom variant="body" component="p">
+                           {product.description}
+                        </Typography>
+                        
+                        <p>
+                           Available Sizes: {' '}
+                           {product.availableSizes.map(x => (
+                              <span> 
+                                 {' '}
+                                 <Button 
+                                    variant="contained"
+                                    size="small" 
+                                    xclassName="button"
+                                 >{x}</Button>
+                              </span>
+                           ))}
+                        </p>
+                        
+                        <div className="product-price">
+                           <div>{formatCurrency(product.price)}</div>
+                           <Button 
+                              variant="contained"
+                              size="large" 
+                              xclassName="button primary" 
+                              onClick={() => {
                                  addToCartHandler(product);
                                  closeModal();
-                              }}>
-                                 Add To Cart
-                              </button>
-                           </div>
+                              }}
+                           >
+                              Add To Cart
+                           </Button>
                         </div>
                      </div>
-                  </Zoom>
-               </Modal>
-            )
-         }
+                  </div>
+               </Zoom>
+            </Modal>
+         )}
       </Grid>
    );
 }
