@@ -16,6 +16,8 @@ import Grid from '@mui/material/Grid';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 import TextField from '@mui/material/TextField';
 
+import EmptyBag from '../assets/empty-bag.jpg';
+
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
    const order = useSelector((state) => state.order);
@@ -160,8 +162,17 @@ const Cart = () => {
             {cartItems <= 0 && (
                <div>
                   <Typography variant="subtitle1" sx={{ margin: '1rem 1rem 0' }}>
-                     Your cart is empty.
+                     {/* Your cart is empty. */}
+                     <img src={EmptyBag} alt="Your bag is empty" style={{ width: '100%' }}/>
                   </Typography>
+                  <Button 
+                     variant="outlined"
+                     size="large" 
+                     color="primary"
+                     sx={{ width: '100%' }}
+                  >
+                     START SHOPPING
+                  </Button>
                </div>
             )}
 
