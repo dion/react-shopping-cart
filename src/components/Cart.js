@@ -91,7 +91,7 @@ const Cart = () => {
                            <div>Cart Items:</div>
                            <div>
                               {order.cartItems && order.cartItems.map(x => (
-                                 <div>
+                                 <div key={x._id}>
                                     {x.count} {' x '} {x.title}
                                  </div>
                               ))}
@@ -113,11 +113,12 @@ const Cart = () => {
             </Typography>
             
             {cartItems.map(item => (
-               <Fade left cascade>
+               <Fade left cascade key={item._id}>
                   <Box sx={{ 
-                     display: 'flex', alignItems: 'center',
-                     textAlign: 'center', margin: '1rem' 
-                  }}>
+                        display: 'flex', alignItems: 'center',
+                        textAlign: 'center', margin: '1rem' 
+                     }}
+                  >
                      <div>
                         <img 
                            src={item.image} 
