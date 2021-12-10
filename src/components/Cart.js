@@ -133,20 +133,23 @@ const Cart = () => {
                         textAlign: 'left',
                         padding: '.5rem', margin: '.5rem', paddingRight: 0, marginRight: 0
                      }}>
-                        <Typography noWrap>
-                           {item.title}
+                        <Typography variant="subtitle2" noWrap>
+                           {item.title.substring(0, 28)}
                         </Typography>
                         <Box sx={{
                            display: 'flex', alignItems: 'left', justifyContent: 'space-between', 
                            textAlign: 'left', flexWrap: 'wrap'
                         }}>
+                           <div className="cart-remove" onClick={() => removeFromCartHandler(item)}>
+                              x
+                           </div>
                            <div>
-                              <Typography>
+                              <Typography variant="subtitle2">
                                  {item.count} pcs
                               </Typography>
                            </div> 
                            <div>
-                              <Typography>
+                              <Typography variant="subtitle2">
                                  {formatCurrency(item.price)}
                               </Typography>
                               {/* <button className="button" onClick={() => removeFromCartHandler(item)}>

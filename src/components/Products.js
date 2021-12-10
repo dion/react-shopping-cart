@@ -158,7 +158,7 @@ const Products = () => {
                         <Grid container justifyContent="space-between" align-items="center" sm={4}>
                            {product.availableSizes.map(x => (                              
                               <Button 
-                                 variant="contained"
+                                 variant="outlined"
                                  size="small" 
                                  xclassName="button"
                               >{x}</Button>
