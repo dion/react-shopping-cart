@@ -38,7 +38,8 @@ const Filter = () => {
          display: 'flex', 
          alignItems: 'center',
          padding: '1rem', 
-         xmargin: '1rem' 
+         xmargin: '1rem',
+         paddingRight: '5.5rem'
       }}>
          <Grid item xs={8}>
             <Typography sx={{ minWidth: 100 }} variant="subtitle1">{filteredItems.length} Products</Typography>

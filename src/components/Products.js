@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/system';
-//import Modal from '@mui/material/Modal';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 const Products = () => {
    const products = useSelector((state) => state.products.filteredItems);
@@ -49,6 +49,12 @@ const Products = () => {
       );
    };
 
+   const customStyles = {
+      content: {
+         top: '100px'
+      },
+   };
+
    return (
       <Grid container xdirection="column">
          <Fade bottom cascade>
@@ -56,7 +62,7 @@ const Products = () => {
                (<Grid container>
                   {products.map(product => (
                      <Box
-                        sx={{ maxWidth: '28%', margin: '0 1.5rem 2.5rem' }}
+                        sx={{ maxWidth: '20%', margin: '0 1.5rem 2.5rem' }}
                         key={product._id}
                      >
                         <Card>
@@ -106,14 +112,13 @@ const Products = () => {
                isOpen={true}
                onRequestClose={closeModal}
                ariaHideApp={false}
+               style={customStyles}
             >
                <Zoom>
-                  
                   <div className="product-details">
                      <Button 
-                        variant="contained"
+                        variant=""
                         size="small" 
-                        color="secondary"
                         onClick={closeModal}
                         sx={{ 
                            position: 'absolute',
@@ -122,9 +127,19 @@ const Products = () => {
                            zIndex: 100000
                         }}
                      >
-                        x
+                        <CancelPresentationIcon />
                      </Button>
-                     <img src={product.image} alt={product.title} style={{ height: '80vh' }} />
+
+                     <Card>
+                        <CardActionArea>
+                           <CardMedia
+                              component="img"
+                              image={product.image}
+                              alt={product.title}
+                           />
+                        </CardActionArea>
+                     </Card>
+
                      <div className="product-details-description">
                         <Typography gutterBottom variant="h4" component="p">
                            <strong>{product.title}</strong>

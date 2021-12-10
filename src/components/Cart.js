@@ -129,13 +129,13 @@ const Cart = () => {
                         />
                      </div>
                      <Box sx={{
-                        padding: '.5rem', margin: '.5rem'
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '.5rem', margin: '.5rem', paddingRight: 0, marginRight: 0
                      }}>
-                        <div>
-                           <Typography noWrap>
-                              {item.title}
-                           </Typography>
-                        </div>
+                        <Typography noWrap>
+                           {item.title}
+                        </Typography>
                         <Box sx={{
                            display: 'flex', alignItems: 'left', justifyContent: 'space-between', 
                            textAlign: 'left', flexWrap: 'wrap'
@@ -162,7 +162,6 @@ const Cart = () => {
             {cartItems <= 0 && (
                <div>
                   <Typography variant="subtitle1" sx={{ margin: '1rem 1rem 0' }}>
-                     {/* Your cart is empty. */}
                      <img src={EmptyBag} alt="Your bag is empty" style={{ width: '100%' }}/>
                   </Typography>
                   <Button 
