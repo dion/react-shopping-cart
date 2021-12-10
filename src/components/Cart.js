@@ -111,8 +111,9 @@ const Cart = () => {
             <Typography gutterBottom gutterTop variant="h5" component="div" sx={{ margin: '5rem 1rem 0' }}>
                My Cart
             </Typography>
-            {/* <Fade left cascade> */}
-               {cartItems.map(item => (
+            
+            {cartItems.map(item => (
+               <Fade left cascade>
                   <Box sx={{ 
                      display: 'flex', alignItems: 'center',
                      textAlign: 'center', margin: '1rem' 
@@ -152,11 +153,20 @@ const Cart = () => {
                         </Box>
                      </Box>
                   </Box>
-               ))}
-            {/* </Fade> */}
+               </Fade>
+            ))}
+
+            {cartItems <= 0 && (
+               <div>
+                  <Typography variant="subtitle1" sx={{ margin: '1rem 1rem 0' }}>
+                     Your cart is empty.
+                  </Typography>
+               </div>
+            )}
 
             {cartItems.length > 0 && (
                <div>
+                  <Fade left cascade>
                   <Box
                      sx={{
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
@@ -203,7 +213,7 @@ const Cart = () => {
                         </Button>
                      </Box>
                   </Box>
-
+                  </Fade>
                   {showCheckout && (
                      <Fade right cascade>
                         <div className="cart">
