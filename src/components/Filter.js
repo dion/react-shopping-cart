@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { filterProducts, sortProducts } from '../reducers/productSlice';
 
 // MUI imports
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';

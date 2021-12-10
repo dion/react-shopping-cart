@@ -1,4 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 
 html {
   /* font-size: 62.5%; */
@@ -11,7 +11,7 @@ body,
 }
 body, input, select, textarea, button {
   font-size: 1.6rem;
-  font-family: 'Roboto', 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: 'Lato', 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
 header a {
@@ -84,12 +84,13 @@ footer {
 .orders {
   width: 100%;
   padding: 10px;
+  font-size: 1.5rem;
 }
 tbody > tr:nth-child(odd) {
   background-color: #f0f0f0;
 }
 td {
-  padding: 5px;
+  padding: 1rem;
 }
 th {
   text-align: left; 

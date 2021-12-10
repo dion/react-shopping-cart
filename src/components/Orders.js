@@ -41,7 +41,7 @@ const Orders = () => {
             </thead>
             <tbody>
                {orders.map(order => (
-                  <tr>
+                  <tr key={order._id}>
                      <td>{order._id}</td>
                      <td>{order.createdAt}</td>
                      <td>{formatCurrency(order.total)}</td>
@@ -50,7 +50,7 @@ const Orders = () => {
                      <td>{order.address}</td>
                      <td>
                         {order.cartItems.map(item => (
-                           <div>
+                           <div key={item._id}>
                               {item.count} {' x '} {item.title}
                            </div>
                         ))}

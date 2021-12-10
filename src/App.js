@@ -5,30 +5,48 @@ import HomeScreen from './screens/HomeScreen';
 
 // MUI imports
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
-const App = () => {
+import Logo from './assets/logo.png';
+
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+
+const ElevationScroll = (props) => {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+};
+
+const App = (props) => {
   return (
     <BrowserRouter>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+      <ElevationScroll {...props}>
+        <AppBar xposition="static" sx={{ backgroundColor: '#3b474e', padding: '.7rem' }}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Link to="/">Apparel Shop</Link>
+              <Link to="/" sx={{ cursor: 'pointer' }}>
+                <img src={Logo} alt="Apparel Shop" />
+              </Link>
             </Typography>
             <Button color="inherit">
-              <Link to="/admin">Admin</Link>
+              <Link to="/account">Sign In</Link>
             </Button>
           </Toolbar>
         </AppBar>
-      </Box>
-      <Grid container sx={{ padding: '0 15px' }}>
+      </ElevationScroll>
+      <Grid container sx={{ padding: '0 15px', mt: '87px' }}>
         <Routes>
-          <Route path="/admin" element={<AdminScreen />} exact />
+          <Route path="/account" element={<AdminScreen />} exact />
           <Route path="/" element={<HomeScreen />} exact />
         </Routes>
       </Grid>
