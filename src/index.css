@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap"); */
 
 html {
   /* font-size: 62.5%; */
@@ -13,7 +13,7 @@ body, input, select, textarea, button {
   font-size: 1.6rem;
   font-family: 'Roboto', 'Montserrat', Helvetica, Arial, sans-serif;
 }
-.grid-container {
+/* .grid-container {
   display: grid;
   grid-template-areas: 'header'
   'main'
@@ -21,13 +21,13 @@ body, input, select, textarea, button {
   grid-template-rows: 5rem 1fr 5rem;
   grid-template-columns: 1fr;
   height: 100%;
-}
-a {
+} */
+/* a {
   text-decoration: none;
 }
 a:hover {
   color: #ff8000;
-}
+} */
 /* header {
   grid-area: header;
   background-color: #203040;
@@ -54,7 +54,7 @@ footer {
   align-items: center;
 }
 
-.content {
+/* .content {
   display: flex;
   flex-wrap: wrap;
 }
@@ -63,7 +63,7 @@ footer {
 }
 .sidebar {
   flex: 1 20rem;
-}
+} */
 
 /* products */
 /* .products {
@@ -171,6 +171,7 @@ footer {
 .total > button {
   flex: 1;
 } */
+
 /* checkout form */
 form {
   width: 100%;

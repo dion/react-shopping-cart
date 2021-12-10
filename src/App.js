@@ -26,18 +26,12 @@ const App = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      {/* <main> */}
-      {/* <Box sx={{ flexGrow: 1 }}> */}
-        {/* <Grid container xspacing={0}> */}
-          {/* <Grid item spacing={5}> */}
-            <Routes>
-              <Route path="/admin" element={<AdminScreen />} exact />
-              <Route path="/" element={<HomeScreen />} exact />
-            </Routes>
-          {/* </Grid> */}
-        {/* </Grid> */}
-      {/* </Box> */}
-      {/* </main> */}
+      <Grid container sx={{ padding: '0 15px' }}>
+        <Routes>
+          <Route path="/admin" element={<AdminScreen />} exact />
+          <Route path="/" element={<HomeScreen />} exact />
+        </Routes>
+      </Grid>
       {/* <footer>
         All rights reserved.
       </footer> */}

@@ -13,6 +13,8 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
+import TextField from '@mui/material/TextField';
 
 const Cart = () => {
    const cartItems = useSelector((state) => state.cartItems);
@@ -192,57 +194,64 @@ const Cart = () => {
                         <Button 
                            variant="contained"
                            size="large" 
-                           color="secondary"
+                           color="primary"
                            onClick={() => setShowCheckout(true)} 
                            sx={{ width: '100%' }}
+                           endIcon={<TrendingFlatIcon />}
                         >
-                           Proceed
+                           CHECK OUT
                         </Button>
                      </Box>
                   </Box>
 
-                  
-               
-                  {/* {showCheckout && (
+                  {showCheckout && (
                      <Fade right cascade>
                         <div className="cart">
                            <form onSubmit={(e) => createOrderHandler(e)}>
                               <ul className="form-container">
                                  <li>
-                                    <label>Email</label>
-                                    <input 
-                                       name="email"
-                                       type="email" 
+                                    <TextField 
                                        required 
+                                       id="outlined-basic" 
+                                       label="Email" 
+                                       variant="outlined" 
                                        onChange={(e) => setEmail(e.target.value)}
-                                    ></input>
+                                    />
                                  </li>
                                  <li>
-                                    <label>Name</label>
-                                    <input 
-                                       name="name"
-                                       type="text" 
+                                    <TextField 
                                        required 
+                                       id="outlined-basic" 
+                                       label="Name" 
+                                       variant="outlined" 
                                        onChange={(e) => setName(e.target.value)}
-                                    ></input>
+                                    />
                                  </li>
                                  <li>
-                                    <label>Address</label>
-                                    <input 
-                                       name="address"
-                                       type="text" 
+                                    <TextField 
                                        required 
+                                       id="outlined-basic" 
+                                       label="Address" 
+                                       variant="outlined" 
                                        onChange={(e) => setAddress(e.target.value)}
-                                    ></input>
+                                    />
                                  </li>
                                  <li>
-                                    <button className="button primary" type="submit">Checkout</button>
+                                    <Button 
+                                       type="submit"
+                                       variant="contained"
+                                       size="large" 
+                                       color="secondary"
+                                       onClick={() => setShowCheckout(true)} 
+                                       sx={{ width: '100%' }}
+                                       endIcon={<TrendingFlatIcon />}
+                                    >Submit</Button>
                                  </li>
                               </ul>
                            </form>
                         </div>
                      </Fade>
-                  )} */}
+                  )}
                </div>
             )}
          </Grid>

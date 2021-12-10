@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 
 const Homescreen = () => {
    return (
-      <Grid container spacing={5}>
+      <Grid container spacing={1}>
          <Grid item xs={12} sm={8}>
             <Filter />
             <Products />
