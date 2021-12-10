@@ -42,7 +42,7 @@ const Filter = () => {
          xmargin: '1rem' 
       }}>
          <Grid item xs={8}>
-            <Typography sx={{ minWidth: 100 }} variant="subtitle2">{filteredItems.length} Products</Typography>
+            <Typography sx={{ minWidth: 100 }} variant="subtitle1">{filteredItems.length} Products</Typography>
          </Grid>
 
          <Grid 

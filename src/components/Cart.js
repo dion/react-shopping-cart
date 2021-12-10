@@ -108,8 +108,8 @@ const Cart = () => {
                margin: '1rem'      
             }}
          >
-            <Typography gutterBottom gutterTop variant="h5" component="div" sx={{ margin: '5rem 1rem 0' }}>
-               My Cart
+            <Typography gutterBottom gutterTop variant="h4" component="div" sx={{ margin: '5rem 1rem 0' }}>
+               <strong>My Cart</strong>
             </Typography>
             
             {cartItems.map(item => (
