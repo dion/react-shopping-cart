@@ -77,7 +77,7 @@ const Products = () => {
                            </CardActionArea>
                         </Card>
                         
-                        <Typography gutterBottom variant="subtitle1" component="div" mt={2}>
+                        <Typography gutterBottom variant="subtitle1" component="div" mt={2} sx={{ minHeight: '56px', textTransform: 'capitalize' }}>
                            {product.title}
                         </Typography>
 

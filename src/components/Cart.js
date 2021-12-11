@@ -133,7 +133,7 @@ const Cart = () => {
                         textAlign: 'left',
                         padding: '.5rem', margin: '.5rem', paddingRight: 0, marginRight: 0
                      }}>
-                        <Typography variant="subtitle2" noWrap>
+                        <Typography variant="subtitle2" noWrap sx={{ textTransform: 'capitalize' }}>
                            {item.title.substring(0, 28)}
                         </Typography>
                         <Box sx={{

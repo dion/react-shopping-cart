@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { processLogin, processLogout } from './reducers/userSlice';
+
 import AdminScreen from './screens/AdminScreen';
 import HomeScreen from './screens/HomeScreen';
 
@@ -9,25 +12,33 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 import Logo from './assets/logo.png';
 
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-
-const ElevationScroll = (props) => {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
-};
-
 const App = (props) => {
+  const dispatch = useDispatch();
+  const loggedInStatus = useSelector((state) => state.user.loggedInStatus);
+
+  const ElevationScroll = (props) => {
+    const { children, window } = props;
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 0,
+      target: window ? window() : undefined,
+    });
+  
+    return React.cloneElement(children, {
+      elevation: trigger ? 4 : 0,
+    });
+  };
+
+  const handleLogout = () => {
+    dispatch(
+      processLogout()
+    );
+  };
+
   return (
     <BrowserRouter>
       <ElevationScroll {...props}>
@@ -39,7 +50,13 @@ const App = (props) => {
               </Link>
             </Typography>
             <Button color="inherit">
-              <Link to="/account">Sign In</Link>
+              {loggedInStatus && (
+                <Link to="/account" onClick={handleLogout}>Sign Out</Link>
+              )}
+              {!loggedInStatus && (
+                <Link to="/account">Sign In</Link>
+              )}
+              
             </Button>
           </Toolbar>
         </AppBar>
